@@ -1,5 +1,21 @@
 ; WRITE A SUB-PROGRAM NESTED STRUCTURE PROGRAM MODULE, INPUT THE NAME AND 8-CHARACTER PHONE NUMBER
 ; THE KEYBOARD, AND DISPLAY IT IN A CERTAIN FORMAT.
+; MAIN PROGRAM 'TELIST'
+; DISPLAY PROMPT 'INPUTNAME'
+; CALL THE SUBPROGRAM 'INPUT_NAME' to INPUT THE NAME
+; Display prompt INPUT A TELEPHONE NUMBER
+; Call the subprogram INPHONE to enter the phone number;
+; Call the subroutine PRINTLINE to display the name and phone number.
+; Subroutine INPUT_NAME:
+; Call the keyboard input subroutine GETCHAR to store the input name in the INBUF buffer
+; Move the name in INBUF into the output line OUTNAME.
+; Subroutine INPHONE:
+; Call the keyboard input subroutine GETCHAR and store the entered 8-digit phone number in the INBUF buffer
+; Move the number in INBUF into the output line OUTPHONE.
+; Subroutine PRINTLINE:
+; Display name and phone number in the format:
+; NAME             TEL
+; XXXX             XXXXXXXX
 
 DATA	SEGMENT
 NAMEINPUTINFO	DB	'PLEASE INPUT NAME: $'
