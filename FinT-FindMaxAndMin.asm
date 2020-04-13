@@ -48,3 +48,40 @@ GOON:
 CODE ENDS
     END START
     
+
+; There is another method given by my teacher below:
+
+; DATAS SEGMENT
+;     DATA DB 98,50,23,1,56,76,100,99,98,0
+;    MAX DB 0
+;    MIN DB 0
+; DATAS ENDS
+
+; CODE SEGMENT
+;     ASSUME CS:CODE,DS:DATAS
+; START:
+;     MOV AX,DATAS
+;     MOV DS,AX  
+    
+;     LEA SI,DATA
+;     MOV CX,10
+;     CLD             ; Clear DF
+;     LODSB           ; Use LODSB command that means Load Accumulator from string(BYTE)
+;     MOV MAX,AL      ; Now AL equals to DATA[0]
+;     MOV MIN,AL
+; NEXT:
+;     LODSB           ; The comparision begins with AL-DATA[0] and ends with AL-DATA[9]
+;     CMP AL,MAX     
+;     JG GREATER
+;     CMP AL,MIN
+;     JL LESS
+;     JMP GOON
+; GREATER:
+;     MOV MAX,AL
+;     JMP GOON
+; LESS:
+;     MOV MIN,AL
+; GOON:
+;     LOOP NEXT
+; CODE ENDS
+;     END START
