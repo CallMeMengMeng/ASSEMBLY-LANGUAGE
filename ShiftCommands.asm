@@ -99,9 +99,6 @@ AGAIN:
     LOOP AGAIN
     RET
 DISP ENDP
-    
-    
-    
  
 CODE ENDS
     END START
