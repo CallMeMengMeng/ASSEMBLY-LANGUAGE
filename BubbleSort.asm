@@ -50,3 +50,69 @@ AGAIN4:	MOV AH,02H			; DISPLAY THE NUMBER OF DL ON THE SCREEN
 
 CODE    ENDS
         END START
+
+; Modified program
+; DATA SEGMENT
+;     TABLE DB 10 DUP(0),'$'
+;     MESS1 DB 0DH,0AH,'PLEASE INPUT 10 NUMBERS(0-F): $'
+;     MESS2 DB 0DH,0AH,'THE RESULT IS: $'
+; DATA ENDS
+    
+; STACK SEGMENT PARA STACK 'STACK'
+;     DB 10 DUP(0)
+; STACK ENDS
+
+; CODE SEGMENT
+;     ASSUME CS:CODE,DS:DATA
+; START:  
+;     MOV AX,DATA
+;     MOV DS,AX
+;     LEA SI,TABLE
+;     MOV CX,10
+    
+;     MOV AH,09H
+;     MOV DX,OFFSET MESS1 
+;     INT 21H
+; INPUT:
+;     MOV AH,01H
+;     INT 21H  
+;     MOV TABLE[SI],AL
+;     INC SI
+;     LOOP INPUT 
+    
+;     MOV AH,02H
+;     MOV DL,0AH
+;     INT 21H   
+;     MOV DL,0DH
+;     INT 21H  
+              
+;     MOV CX,9
+; INIT:    
+;     PUSH CX
+;     MOV SI,0
+; SORT:
+;     MOV AL,TABLE[SI]
+;     CMP AL,TABLE[SI+1]
+;     JLE NEXT   
+;     XCHG AL,TABLE[SI+1]
+;     MOV TABLE[SI],AL  
+; NEXT:
+;     INC SI
+;     LOOP SORT  
+    
+;     POP CX     
+;     LOOP INIT   
+    
+; DISP:
+;     MOV AH,09H     
+;     MOV DX,OFFSET MESS2
+;     INT 21H   
+;     MOV DX,OFFSET TABLE
+;     INT 21H   
+    
+; QUIT:
+;     MOV AH,4CH
+;     INT 21H     
+    
+; CODE ENDS
+;     END START
