@@ -1,3 +1,3 @@
-# Proteux Simulation Programs
+# Proteus Simulation Programs
 - - - 
-Some simulate program within EMU8086 and Proteux.
+Some simulate program within EMU8086 and Proteus.
