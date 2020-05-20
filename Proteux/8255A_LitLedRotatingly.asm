@@ -5,7 +5,7 @@
 
 ; PS. 
 ; I assumed that whether [PB1,PB0]=[1,1] or [PB1,PB0]=[0,0], these
-; LEDs would not be lit up.     
+; LEDs would be reset to the origin state.     
 
 CODE SEGMENT
     ASSUME CS:CODE
@@ -13,7 +13,8 @@ START:
     MOV DX,203H
     MOV AL,82H
     OUT DX,AL
-    
+
+ORIGIN:
     MOV DX,200H
     MOV AH,0FEH
     
@@ -29,7 +30,7 @@ WATT:
     JE DISP_LEFT
     CMP AL,01H
     JE DISP_RIGHT
-    JMP DISP_NOLED
+    JMP DISP_RESET
     
 DISP_LEFT:
     ROL AH,1
@@ -39,13 +40,8 @@ DISP_RIGHT:
     ROR AH,1
     MOV DX,200H
     JMP WATT
-DISP_NOLED:
-    MOV AH,0FFH
-    MOV DX,200H   
-    MOV AL,AH
-    OUT DX,AL   
-    MOV AH,4CH
-    INT 21H
+DISP_RESET:
+    JMP ORIGIN
     
 DELAY PROC NEAR
     MOV BL,10
