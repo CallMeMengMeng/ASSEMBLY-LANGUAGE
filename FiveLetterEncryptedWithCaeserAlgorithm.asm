@@ -62,13 +62,13 @@ ENCRYPT:
 UPPERCASE:                                                           ; Caeser encryption of uppercase letter
     ADD DL,STEP                                                      ; Check if the encrypted result is beyond 'Z'
     CMP DL,5AH                                                       ; SUB 26 to make Z->B
-    JG SUB_26
+    JA SUB_26
     JMP NEXT
     
 LOWERCASE:                                                           ; Caeser encryption of lowercase letter
     ADD DL,STEP                                                      ; Check if the encrypted result is beyond 'z'
     CMP DL,7AH                                                       ; SUB 26 to make z->b
-    JG SUB_26
+    JA SUB_26
     JMP NEXT
     
 SUB_26:
