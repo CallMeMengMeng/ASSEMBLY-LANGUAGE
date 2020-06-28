@@ -1,0 +1,222 @@
+A51 MACRO ASSEMBLER  TEST                                                                 06/24/2020 23:27:48 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02
+OBJECT MODULE PLACED IN TEST.OBJ
+ASSEMBLER INVOKED BY: D:\software\keil\C51\BIN\A51.EXE TEST.ASM SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ;TABLE:
+                       2     ;       DB 080h,083h,086h,089h,08ch,090h,093h,096h,099h,09ch,09fh,0a2h,0a5h,0a8h,0abh,0aeh
+                       3     ;       DB 0b1h,0b3h,0b6h,0b9h,0bch,0bfh,0c1h,0c4h,0c7h,0c9h,0cch,0ceh,0d1h,0d3h,0d5h,0d8h
+                       4     ;       DB 0dah,0dch,0deh,0e0h,0e2h,0e4h,0e6h,0e8h,0eah,0ebh,0edh,0efh,0f0h,0f1h,0f3h,0f4h
+                       5     ;       DB 0f5h,0f6h,0f8h,0f9h,0fah,0fah,0fbh,0fch,0fdh,0fdh,0feh,0feh,0feh,0ffh,0ffh,0ffh
+                       6     ;       DB 0ffh,0ffh,0ffh,0ffh,0feh,0feh,0feh,0fdh,0fdh,0fch,0fbh,0fah,0fah,0f9h,0f8h,0f6h
+                       7     ;       DB 0f5h,0f4h,0f3h,0f1h,0f0h,0efh,0edh,0ebh,0eah,0e8h,0e6h,0e4h,0e2h,0e0h,0deh,0dch
+                       8     ;       DB 0dah,0d8h,0d5h,0d3h,0d1h,0ceh,0cch,0c9h,0c7h,0c4h,0c1h,0bfh,0bch,0b9h,0b6h,0b3h
+                       9     ;       DB 0b1h,0aeh,0abh,0a8h,0a5h,0a2h,09fh,09ch,099h,096h,093h,090h,08ch,089h,086h,083h
+                      10     ;       DB 080h,07dh,07ah,077h,074h,070h,06dh,06ah,067h,064h,061h,05eh,05bh,058h,055h,052h
+                      11     ;       DB 04fh,04dh,04ah,047h,044h,041h,03fh,03ch,039h,037h,034h,032h,02fh,02dh,02bh,028h
+                      12     ;       DB 026h,024h,022h,020h,01eh,01ch,01ah,018h,016h,015h,013h,011h,010h,00fh,00dh,00ch
+                      13     ;       DB 00bh,00ah,008h,007h,006h,006h,005h,004h,003h,003h,002h,002h,002h,001h,001h,000h
+                      14     ;       DB 000h,000h,001h,001h,002h,002h,002h,003h,003h,004h,005h,006h,006h,007h,008h,00ah
+                      15     ;       DB 00bh,00ch,00dh,00fh,010h,011h,013h,015h,016h,018h,01ah,01ch,01eh,020h,022h,024h
+                      16     ;       DB 026h,028h,02bh,02dh,02fh,032h,034h,037h,039h,03ch,03fh,041h,044h,047h,04ah,04dh
+                      17     ;       DB 04fh,052h,055h,058h,05bh,05eh,061h,064h,067h,06ah,06dh,070h,074h,077h,07ah,07dh
+                      18             
+                      19     
+0000                  20             ORG 0000H
+0000 020040           21             LJMP MAIN
+0003                  22             ORG 0003H
+0003 020049           23             LJMP INT00
+0040                  24             ORG 0040H
+0040                  25     MAIN: 
+0040 856081           26             MOV SP,60H
+0043 D288             27             SETB IT0
+0045 D2AF             28             SETB EA
+0047 D2A8             29             SETB EX0
+0049                  30     INT00:
+0049 C2AF             31             CLR EA
+004B C0D0             32             PUSH PSW
+004D C0E0             33             PUSH Acc
+004F D2AF             34             SETB EA
+0051 30900F           35             JNB P1.0,IR0
+0054 309123           36             JNB P1.1,IR1
+0057 309239           37             JNB P1.2,IR2
+005A                  38     INTIR:
+005A C2AF             39             CLR EA
+005C D0E0             40             POP Acc
+005E D0D0             41             POP PSW
+0060 D2AF             42             SETB EA
+0062 32               43             RETI
+                      44     
+0063                  45     IR0:
+0063 78FD             46             MOV R0,#0FDH
+0065 7400             47             MOV A,#00H
+0067                  48     UP0:
+0067 F2               49             MOVX @R0,A
+0068 2090EF           50             JB P1.0,INTIR
+006B 04               51             INC A
+006C 70F9             52             JNZ UP0
+006E                  53     DOWN0:
+006E 14               54             DEC A
+006F F2               55             MOVX @R0,A
+0070 2090E7           56             JB P1.0,INTIR
+0073 70F9             57             JNZ DOWN0
+0075 80F0             58             SJMP UP0
+A51 MACRO ASSEMBLER  TEST                                                                 06/24/2020 23:27:48 PAGE     2
+
+0077 02005A           59             LJMP INTIR
+                      60     
+007A                  61     IR1:
+007A 78FE             62             MOV R0,#0FEH
+007C                  63     UP1:
+007C 7400             64             MOV A,#00H
+007E F2               65             MOVX @R0,A
+007F 1200AF           66             LCALL DELAY
+0082 2091D5           67             JB P1.1,INTIR
+0085                  68     DOWN1:
+0085 74FF             69             MOV A,#0FFH
+0087 F2               70             MOVX @R0,A
+0088 1200AF           71             LCALL DELAY
+008B 2091CC           72             JB P1.1,INTIR
+008E 80EC             73             SJMP UP1
+0090 02005A           74             LJMP INTIR
+                      75     
+0093                  76     IR2:
+0093 78FE             77             MOV R0,#0FEH
+0095 7900             78             MOV R1,#00H
+0097 7400             79             MOV A,#00H
+0099 900000           80             MOV DPTR,#00H
+                      81     
+009C                  82     SEARCH:
+009C E9               83             MOV A,R1
+009D 1200AA           84             LCALL VALUE_SEARCH
+00A0 F2               85             MOVX @R0,A
+00A1 2092B6           86             JB P1.2,INTIR
+00A4 09               87             INC R1
+00A5 80F5             88             SJMP SEARCH
+00A7 02005A           89             LJMP INTIR
+                      90     
+                      91     
+00AA                  92     VALUE_SEARCH:
+00AA 9000B8           93             MOV DPTR,#TABLE
+00AD 93               94             MOVC A,@A+DPTR
+00AE 22               95             RET
+                      96     
+00AF                  97     DELAY:
+00AF 7F19             98             MOV R7,#25
+00B1                  99     D1:
+00B1 7E0A            100             MOV R6,#10
+00B3                 101     D2:
+00B3 DEFE            102             DJNZ R6,D2
+00B5 DFFA            103             DJNZ R7,D1
+00B7 22              104             RET
+                     105     
+00B8                 106     TABLE:
+00B8 80838689        107             DB 080h,083h,086h,089h,08ch,090h,093h,096h,099h,09ch,09fh,0a2h,0a5h,0a8h,0abh,0aeh
+00BC 8C909396                
+00C0 999C9FA2                
+00C4 A5A8ABAE                
+00C8 B1B3B6B9        108             DB 0b1h,0b3h,0b6h,0b9h,0bch,0bfh,0c1h,0c4h,0c7h,0c9h,0cch,0ceh,0d1h,0d3h,0d5h,0d8h
+00CC BCBFC1C4                
+00D0 C7C9CCCE                
+00D4 D1D3D5D8                
+00D8 DADCDEE0        109             DB 0dah,0dch,0deh,0e0h,0e2h,0e4h,0e6h,0e8h,0eah,0ebh,0edh,0efh,0f0h,0f1h,0f3h,0f4h
+00DC E2E4E6E8                
+00E0 EAEBEDEF                
+00E4 F0F1F3F4                
+00E8 F5F6F8F9        110             DB 0f5h,0f6h,0f8h,0f9h,0fah,0fah,0fbh,0fch,0fdh,0fdh,0feh,0feh,0feh,0ffh,0ffh,0ffh
+00EC FAFAFBFC                
+00F0 FDFDFEFE                
+00F4 FEFFFFFF                
+00F8 FFFFFFFF        111             DB 0ffh,0ffh,0ffh,0ffh,0feh,0feh,0feh,0fdh,0fdh,0fch,0fbh,0fah,0fah,0f9h,0f8h,0f6h
+00FC FEFEFEFD                
+A51 MACRO ASSEMBLER  TEST                                                                 06/24/2020 23:27:48 PAGE     3
+
+0100 FDFCFBFA                
+0104 FAF9F8F6                
+0108 F5F4F3F1        112             DB 0f5h,0f4h,0f3h,0f1h,0f0h,0efh,0edh,0ebh,0eah,0e8h,0e6h,0e4h,0e2h,0e0h,0deh,0dch
+010C F0EFEDEB                
+0110 EAE8E6E4                
+0114 E2E0DEDC                
+0118 DAD8D5D3        113             DB 0dah,0d8h,0d5h,0d3h,0d1h,0ceh,0cch,0c9h,0c7h,0c4h,0c1h,0bfh,0bch,0b9h,0b6h,0b3h
+011C D1CECCC9                
+0120 C7C4C1BF                
+0124 BCB9B6B3                
+0128 B1AEABA8        114             DB 0b1h,0aeh,0abh,0a8h,0a5h,0a2h,09fh,09ch,099h,096h,093h,090h,08ch,089h,086h,083h
+012C A5A29F9C                
+0130 99969390                
+0134 8C898683                
+0138 807D7A77        115             DB 080h,07dh,07ah,077h,074h,070h,06dh,06ah,067h,064h,061h,05eh,05bh,058h,055h,052h
+013C 74706D6A                
+0140 6764615E                
+0144 5B585552                
+0148 4F4D4A47        116             DB 04fh,04dh,04ah,047h,044h,041h,03fh,03ch,039h,037h,034h,032h,02fh,02dh,02bh,028h
+014C 44413F3C                
+0150 39373432                
+0154 2F2D2B28                
+0158 26242220        117             DB 026h,024h,022h,020h,01eh,01ch,01ah,018h,016h,015h,013h,011h,010h,00fh,00dh,00ch
+015C 1E1C1A18                
+0160 16151311                
+0164 100F0D0C                
+0168 0B0A0807        118             DB 00bh,00ah,008h,007h,006h,006h,005h,004h,003h,003h,002h,002h,002h,001h,001h,000h
+016C 06060504                
+0170 03030202                
+0174 02010100                
+0178 00000101        119             DB 000h,000h,001h,001h,002h,002h,002h,003h,003h,004h,005h,006h,006h,007h,008h,00ah
+017C 02020203                
+0180 03040506                
+0184 0607080A                
+0188 0B0C0D0F        120             DB 00bh,00ch,00dh,00fh,010h,011h,013h,015h,016h,018h,01ah,01ch,01eh,020h,022h,024h
+018C 10111315                
+0190 16181A1C                
+0194 1E202224                
+0198 26282B2D        121             DB 026h,028h,02bh,02dh,02fh,032h,034h,037h,039h,03ch,03fh,041h,044h,047h,04ah,04dh
+019C 2F323437                
+01A0 393C3F41                
+01A4 44474A4D                
+01A8 4F525558        122             DB 04fh,052h,055h,058h,05bh,05eh,061h,064h,067h,06ah,06dh,070h,074h,077h,07ah,07dh
+01AC 5B5E6164                
+01B0 676A6D70                
+01B4 74777A7D                
+                     123     
+                     124             END
+A51 MACRO ASSEMBLER  TEST                                                                 06/24/2020 23:27:48 PAGE     4
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ACC. . . . . . . .  D ADDR   00E0H   A   
+D1 . . . . . . . .  C ADDR   00B1H   A   
+D2 . . . . . . . .  C ADDR   00B3H   A   
+DELAY. . . . . . .  C ADDR   00AFH   A   
+DOWN0. . . . . . .  C ADDR   006EH   A   
+DOWN1. . . . . . .  C ADDR   0085H   A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+EX0. . . . . . . .  B ADDR   00A8H.0 A   
+INT00. . . . . . .  C ADDR   0049H   A   
+INTIR. . . . . . .  C ADDR   005AH   A   
+IR0. . . . . . . .  C ADDR   0063H   A   
+IR1. . . . . . . .  C ADDR   007AH   A   
+IR2. . . . . . . .  C ADDR   0093H   A   
+IT0. . . . . . . .  B ADDR   0088H.0 A   
+MAIN . . . . . . .  C ADDR   0040H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+PSW. . . . . . . .  D ADDR   00D0H   A   
+SEARCH . . . . . .  C ADDR   009CH   A   
+SP . . . . . . . .  D ADDR   0081H   A   
+TABLE. . . . . . .  C ADDR   00B8H   A   
+UP0. . . . . . . .  C ADDR   0067H   A   
+UP1. . . . . . . .  C ADDR   007CH   A   
+VALUE_SEARCH . . .  C ADDR   00AAH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
